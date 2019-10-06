@@ -39,23 +39,7 @@ class Game
   def play
     "Welcome!"
     while true
-      if current_player.is_computer
-        puts "I'm thinking...."
-        sleep(2)
-        x = rand(0..2)
-        y = rand(0..2)
-      else
-        board.formatted_grid
-        puts ""
-        puts text_for_human_turn
-        x, y = get_move
-      end
-      while !board.get_cell(x, y).value.empty?
-        puts "Look closely! That spot already has a #{board.get_cell(x, y).value}!"
-        puts "Try another coordinate"
-        x, y = get_move
-      end
-      board.set_cell(x, y, current_player.letter)
+      current_player.is_computer ? take_computer_turn : take_human_turn
       if board.game_over
         puts game_over_message
         board.formatted_grid
@@ -64,5 +48,31 @@ class Game
         switch_players
       end
     end
+  end
+
+  def take_computer_turn
+    puts "I'm thinking...."
+    sleep(2)
+    x = rand(0..2)
+    y = rand(0..2)
+    while !board.get_cell(x, y).value.empty?
+      x = rand(0..2)
+      y = rand(0..2)
+    end
+    board.set_cell(x, y, current_player.letter)
+  end
+
+  def take_human_turn
+    board.formatted_grid
+    puts ""
+    puts text_for_human_turn
+    x, y = get_move
+
+    while !board.get_cell(x, y).value.empty?
+      puts "Look closely! That spot already has a #{board.get_cell(x, y).value}!"
+      puts "Try another coordinate"
+      x, y = get_move
+    end
+    board.set_cell(x, y, current_player.letter)
   end
 end
