@@ -50,7 +50,10 @@ class Board
   end
 
   def formatted_grid
-    grid.each do |row|
+    puts '   A B C'
+    grid.each_with_index do |row, index|
+      row_label = "#{index + 1}| "
+      print row_label
       puts row.map { |cell| cell.value.empty? ? "_" : cell.value }.join(" ")
     end
   end

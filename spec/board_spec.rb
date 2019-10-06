@@ -32,6 +32,12 @@ describe Board do
     end
   end
 
+  context "#formatted_grid" do
+    it "returns the grib" do
+      expect(board.formatted_grid).to eq(board.grid)
+    end
+  end
+
   context "#game_over?" do
     it "returns winner if there is a winner" do
       allow_any_instance_of(Board).to receive(:winner?).and_return(true)
