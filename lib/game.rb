@@ -7,7 +7,32 @@ class Game
     @other_player = players.last
   end
 
+  MAPPING = {
+              "A1" => [0, 0],
+              "A2" => [1, 0],
+              "A3" => [2, 0],
+              "B1" => [0, 1],
+              "B2" => [1, 1],
+              "B3" => [2, 1],
+              "C1" => [0, 2],
+              "C2" => [1, 2],
+              "C3" => [2, 2]
+            }
+
   def switch_players
     @current_player, @other_player = other_player, current_player
+  end
+
+  def text_for_human_turn
+    "Where do you want to move?"
+  end
+
+  def get_move(move = gets.chomp)
+    MAPPING[move]
+  end
+
+  def game_over_message
+    return "#{current_player.letter} won!" if board.game_over == :winner
+    return "The game ended in a tie" if board.game_over == :tie
   end
 end
