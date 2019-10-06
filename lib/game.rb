@@ -24,7 +24,7 @@ class Game
   end
 
   def text_for_human_turn
-    "Where do you want to move?"
+    "Where do you want to move? Enter the grid coordinates, like A1 or C2."
   end
 
   def get_move(move = gets.chomp)
@@ -39,10 +39,17 @@ class Game
   def play
     "Welcome!"
     while true
-      board.formatted_grid
-      puts ""
-      puts text_for_human_turn
-      x, y = get_move
+      if current_player.is_computer
+        puts "I'm thinking...."
+        sleep(3)
+        x = rand(0..2)
+        y = rand(0..2)
+      else
+        board.formatted_grid
+        puts ""
+        puts text_for_human_turn
+        x, y = get_move
+      end
       board.set_cell(x, y, current_player.letter)
       if board.game_over
         puts game_over_message

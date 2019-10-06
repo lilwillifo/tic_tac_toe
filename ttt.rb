@@ -8,5 +8,5 @@ until ['X', 'O'].include? response.upcase
   response = gets.chomp
 end
 player_1 = Player.new(response.upcase)
-player_2 = Player.new((['X', 'O'] - [response.upcase]).first)
+player_2 = Player.new((['X', 'O'] - [response.upcase]).first, true)
 Game.new([player_1, player_2]).play

@@ -36,7 +36,7 @@ describe Game do
 
   context "#text_for_human_turn" do
     it "asks where they want to move" do
-      expected = "Where do you want to move?"
+      expected = "Where do you want to move? Enter the grid coordinates, like A1 or C2."
       expect(game.text_for_human_turn).to eq(expected)
     end
   end
