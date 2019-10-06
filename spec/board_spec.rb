@@ -7,6 +7,7 @@ describe Board do
       expect{board.grid}.to_not raise_error
     end
   end
+
   context "#grid" do
     it "defaults to a 3x3 array" do
       board = Board.new()
@@ -16,6 +17,7 @@ describe Board do
       end
     end
   end
+
   context "#get_cell" do
     it "returns the value of the cell object at a (x, y) coordinate" do
       board = Board.new()
@@ -23,11 +25,46 @@ describe Board do
       expect(board.get_cell(0, 0).value).to eq ""
     end
   end
+
   context "#set_cell" do
     it "updates the value of the cell object at a (x, y) coordinate" do
       board = Board.new()
       board.set_cell(0, 0, "X")
       expect(board.get_cell(0, 0).value).to eq "X"
+    end
+  end
+
+  context "#game_over?" do
+    it "returns winner if there is a winner" do
+      board = Board.new()
+      board.stub(:winner?) { true }
+      expect(board.game_over).to eq :winner
+    end
+    it "returns tie if there is a tie" do
+      board = Board.new()
+      board.stub(:tie?) { true }
+      expect(board.game_over).to eq :tie
+    end
+    it "otherwise returns false" do
+      board = Board.new()
+      expect(board.game_over).to eq false
+    end
+  end
+  
+  context "#tie?" do
+    it "returns true if all spaces are filled" do
+      board = Board.new()
+      board.stub(:grid) { [[Cell.new('X'), Cell.new('O'), Cell.new('X')],
+                           [Cell.new('X'), Cell.new('O'), Cell.new('X')],
+                           [Cell.new('O'), Cell.new('X'), Cell.new('O')]] }
+      expect(board.tie?).to eq true
+    end
+    it "returns false if not all spaces are filled" do
+      board = Board.new()
+      board.stub(:grid) { [[Cell.new('X'), Cell.new(), Cell.new('X')],
+                           [Cell.new('X'), Cell.new('O'), Cell.new('X')],
+                           [Cell.new('O'), Cell.new('X'), Cell.new('O')]] }
+      expect(board.tie?).to eq false
     end
   end
 end
