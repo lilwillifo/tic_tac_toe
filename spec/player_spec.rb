@@ -12,19 +12,19 @@ describe Player do
       expect(player.letter).to eq 'O'
     end
 
-    it "is case insensitive" do
+    it "letter is case insensitive" do
       player = Player.new('x')
       expect(player.letter).to eq 'X'
     end
 
-    it "defaults to X if no letter is specified" do
-      player = Player.new()
-      expect(player.letter).to eq 'X'
+    it "defaults to not being a computer user" do
+      player = Player.new('x')
+      expect(player.is_computer).to eq false
     end
 
-    it "defaults back to X if another letter is selected" do
-      player = Player.new('A')
-      expect(player.letter).to eq 'X'
+    it "allows you to set is computer to true" do
+      player = Player.new('x', true)
+      expect(player.is_computer).to eq true
     end
   end
 end
