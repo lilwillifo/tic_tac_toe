@@ -1,4 +1,5 @@
 require_relative './cell.rb'
+require 'pry'
 
 class Board
   attr_reader :grid
@@ -30,13 +31,35 @@ class Board
   end
 
   def winner?
-    # todo
+    winning_positions.each do |position|
+      values = position.map(&:value)
+      next if values.all? { |value| value == '' }
+      return true if values.all? { |value| value == values[0] }
+    end
+    false
+  end
+
+  def winning_position_values(winning_position)
+    winning_position.map { |cell| cell.value }
   end
 
   def tie?
-    grid.all? do |row|
-      row.all? { |cell| !cell.value.empty? }
+    grid.flatten.all? do |cell|
+      !cell.value.empty?
     end
+  end
+
+  private
+
+  def winning_positions
+    grid + grid.transpose + diagonals
+  end
+
+  def diagonals
+    [
+      [get_cell(0,0), get_cell(1,1), get_cell(2,2)],
+      [get_cell(0,2), get_cell(1,1), get_cell(2,0)]
+    ]
   end
 
 end
