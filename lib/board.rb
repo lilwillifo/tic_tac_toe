@@ -15,7 +15,7 @@ class Board
   end
 
   def get_cell(x, y)
-    grid[y][x]
+    grid[x][y]
   end
 
   def set_cell(x, y, value)

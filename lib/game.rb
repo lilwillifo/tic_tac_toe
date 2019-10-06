@@ -28,7 +28,7 @@ class Game
   end
 
   def get_move(move = gets.chomp)
-    MAPPING[move]
+    MAPPING[move.upcase]
   end
 
   def game_over_message
@@ -41,13 +41,18 @@ class Game
     while true
       if current_player.is_computer
         puts "I'm thinking...."
-        sleep(3)
+        sleep(2)
         x = rand(0..2)
         y = rand(0..2)
       else
         board.formatted_grid
         puts ""
         puts text_for_human_turn
+        x, y = get_move
+      end
+      while !board.get_cell(x, y).value.empty?
+        puts "Look closely! That spot already has a #{board.get_cell(x, y).value}!"
+        puts "Try another coordinate"
         x, y = get_move
       end
       board.set_cell(x, y, current_player.letter)
