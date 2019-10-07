@@ -1,5 +1,4 @@
 require_relative './cell.rb'
-require 'pry'
 
 class Board
   attr_reader :grid
@@ -37,10 +36,6 @@ class Board
       return true if values.all? { |value| value == values[0] }
     end
     false
-  end
-
-  def winning_position_values(winning_position)
-    winning_position.map { |cell| cell.value }
   end
 
   def tie?
