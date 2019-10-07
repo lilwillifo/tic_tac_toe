@@ -28,7 +28,12 @@ class Game
   end
 
   def get_move(move = gets.chomp)
-    MAPPING[move.upcase]
+    if MAPPING.keys.include? move.upcase
+      MAPPING[move.upcase]
+    else
+      puts "...You sure about that coordinate? Enter something like B3 or A2."
+      get_move
+    end
   end
 
   def game_over_message
